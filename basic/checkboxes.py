@@ -27,10 +27,19 @@ class MainWindow(QMainWindow):
         self.title_label.setAlignment(Qt.AlignCenter)
         self.title_label.setStyleSheet("font-size: 30px;")
 
-        self.red_checkbox.setGeometry()
+        self.red_checkbox.setGeometry(0, 30, 200, 20)
         self.red_checkbox.setStyleSheet("font-size: 20px;")
+        self.red_checkbox.stateChanged.connect(self.checkbox_changed)
+        self.blue_checkbox.setGeometry(0, 50, 200, 20)
         self.blue_checkbox.setStyleSheet("font-size: 20px;")
+        self.green_checkbox.setGeometry(0, 70, 200, 20)
         self.green_checkbox.setStyleSheet("font-size: 20px;")
+    
+    def checkbox_changed(self, state: int) -> None:
+        if state == Qt.Checked:
+            print(f"a checkbox has been ticked")
+        else:
+            print(f"a checkbox has been unticked")
 
 
 def main():
