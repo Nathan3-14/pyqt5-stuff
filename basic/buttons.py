@@ -30,7 +30,8 @@ class MainWindow(QMainWindow):
         
         title_label = QLabel("Hello World!")
         title_label.setStyleSheet("background-color: red;")
-        self.info1_label = QLabel("Change this number! [0]")
+        self.info1_value = 0
+        self.info1_label = QLabel(f"Change this number! [{self.info1_value}]")
         self.info1_label.setStyleSheet("background-color: blue;")
         info2_label = QLabel(":) (:")
         info2_label.setStyleSheet("background-color: green;")
@@ -52,21 +53,12 @@ class MainWindow(QMainWindow):
         main_widget.setLayout(grid)
     
     def on_increase_button_press(self) -> None:
-        print("Increased")
-        self.info1_label.setText(
-            re.sub(
-                r"\[[0-9]+\]",
-                self.info1_label.text(),
-                "[" + str(
-                    int(re.findall(
-                        r"(?<=\[)[0-9]+(?=\])",
-                        self.info1_label.text()
-                )[0]) + 1) + "]"
-            )
-        )
+        self.info1_value += 1
+        self.info1_label.setText(f"Change this number! [{self.info1_value}]")
 
     def on_decrease_button_press(self) -> None:
-        print("Decreased")
+        self.info1_value -= 1
+        self.info1_label.setText(f"Change this number! [{self.info1_value}]")
 
 def main():
     app = QApplication(sys.argv)
