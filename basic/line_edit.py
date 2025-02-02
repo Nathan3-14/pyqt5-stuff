@@ -15,19 +15,26 @@ class MainWindow(QMainWindow):
         self.setGeometry(700, 300, 500, 300)
         self.setWindowIcon(QIcon("images/icon.png"))
         
-        self.fname_enter = QLineEdit(self)
-        self.lname_enter = QLineEdit(self)
+        self.fname_lineedit = QLineEdit(self)
+        self.lname_lineedit = QLineEdit(self)
         self.submit_button = QPushButton("Submit", self)
         
         
         self.initUI()
     
     def initUI(self) -> None:
-        self.fname_enter.setGeometry(0, 0, 100, 40)
-        self.lname_enter.setGeometry(110, 0, 100, 40)
-        self.submit_button.setGeometry(160, 0, 50, 30)
+        self.fname_lineedit.setGeometry(0, 0, 100, 40)
+        self.fname_lineedit.setPlaceholderText("Name")
+        self.lname_lineedit.setGeometry(110, 0, 100, 40)
+        self.lname_lineedit.setPlaceholderText("Surname")
+        self.submit_button.setGeometry(220, 0, 80, 30)
+        self.submit_button.clicked.connect(self.submit)
 
         self.setStyleSheet("font-size: 20px;")
+    
+    def submit(self) -> None:
+        username = f"{self.fname_lineedit.text()} {self.lname_lineedit.text()}"
+        print(username)
 
 
 def main():
