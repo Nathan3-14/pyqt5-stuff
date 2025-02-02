@@ -23,7 +23,8 @@ class MainWindow(QMainWindow):
         self.setGeometry(700, 300, 500, 300)
         self.setWindowIcon(QIcon("images/icon.png"))
         
-        self.title_label = QLabel(f"unnamed")
+        self.currentfile = ""
+        self.title_label = QLabel("unnamed")
         self.text_plaintext = QPlainTextEdit()
         self.action_buttons_layout = QVBoxLayout()
         self.save_pushbutton = QPushButton("Save")
@@ -55,12 +56,15 @@ class MainWindow(QMainWindow):
         central_widget.setLayout(grid)
     
     def save_file(self) -> None:
-        self.dialog.setFileMode(QFileDialog.FileMode.AnyFile)
-        self.dialog.show()
-        
-        while not self.dialog.exec_():
-            pass
-        file_name = self.dialog.selectedFiles()[0]
+        if self.currentfile != "":
+            file_name = self.currentfile
+        else:
+            self.dialog.setFileMode(QFileDialog.FileMode.AnyFile)
+            self.dialog.show()
+            
+            while not self.dialog.exec_():
+                pass
+            file_name = self.dialog.selectedFiles()[0]
         
         print(f"Saving file to '{file_name}'")
         with open(file_name, "w") as f:
@@ -75,7 +79,8 @@ class MainWindow(QMainWindow):
         file_name = self.dialog.selectedFiles()[0]
         
         print(f"Opening file '{file_name}'")
-        self.title_label.setText(file_name)
+        self.currentfile = file_name
+        self.title_label.setText(file_name.split("/")[-1])
         with open(file_name, "r") as f:
             self.text_plaintext.appendPlainText(f.read())
 
